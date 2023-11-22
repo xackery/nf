@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package adventures.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// These annotations are used when generating the OpenAPI file.
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "1.0"};
+  external_docs: {
+    url: "https://github.com/johanbrandhorst/grpc-gateway-boilerplate";
+    description: "gRPC-gateway boilerplate repository";
+  }
+  schemes: HTTPS;
+};
+
+service AdventureService {
+  rpc ListAdventures(ListAdventuresRequest) returns (stream ListAdventuresResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/adventures
+      get: "/api/v1/adventures"
+      response_body: "adventure"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List adventures"
+      description: "List all adventures on the server."
+      tags: "Adventures"
+    };
+  }
+  rpc CreateAdventure(CreateAdventureRequest) returns (CreateAdventureResponse) {
+    option (google.api.http) = {
+      // Route to this method from POST requests to /api/v1/adventures
+      post: "/api/v1/adventures"
+      body: "*"
+      response_body: "adventure"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a adventure"
+      description: "Create a adventure to the server."
+      tags: "Adventures"
+    };
+  }
+  rpc GetAdventure(GetAdventureRequest) returns (GetAdventureResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/adventures/{id}
+      get: "/api/v1/adventures/{id}"
+      response_body: "adventure"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a adventure"
+      description: "Get a adventure from the server."
+      tags: "Adventures"
+    };
+  }
+  rpc UpdateAdventure(UpdateAdventureRequest) returns (UpdateAdventureResponse) {
+    option (google.api.http) = {
+      // Route to this method from PUT requests to /api/v1/adventures/{id}
+      put: "/api/v1/adventures/{id}"
+      body: "*"
+      response_body: "adventure"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update a adventure"
+      description: "Update a adventure on the server."
+      tags: "Adventures"
+    };
+  }
+  rpc DeleteAdventure(DeleteAdventureRequest) returns (DeleteAdventureResponse) {
+    option (google.api.http) = {
+      // Route to this method from DELETE requests to /api/v1/adventures/{id}
+      delete: "/api/v1/adventures/{id}"
+      response_body: "adventure"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a adventure"
+      description: "Delete a adventure from the server."
+      tags: "Adventures"
+    };
+  }
+}
+
+message Adventure {
+  int32 id = 1;
+  string zone = 2;
+  int32 zone_version = 3;
+  bool is_hard = 4;
+  bool is_raid = 5;
+  int32 min_level = 6;
+  int32 max_level = 7;
+  int32 type = 8;
+  int32 type_data = 9;
+  int32 type_count = 10;
+  float assa_x = 11;
+  float assa_y = 12;
+  float assa_z = 13;
+  float assa_h = 14;
+  string text = 15;
+  int32 duration = 16;
+  int32 zone_in_time = 17;
+  int32 win_points = 18;
+  int32 lose_points = 19;
+  int32 theme = 20;
+  int32 zone_in_zone_id = 21;
+  int32 zone_in_x = 22;
+  int32 zone_in_y = 23;
+  int32 zone_in_z = 24;
+  int32 zone_in_object_id = 25;
+  int32 dest_x = 26;
+  int32 dest_y = 27;
+  int32 dest_z = 28;
+  int32 dest_h = 29;
+  int32 graveyard_zone_id = 30;
+  int32 graveyard_x = 31;
+  int32 graveyard_y = 32;
+  int32 graveyard_z = 33;
+  int32 graveyard_radius = 34;
+  repeated AdventureEntry entries = 35;
+}
+
+message AdventureEntry {
+  int32 id = 1;
+  int32 template_id = 2;
+}
+
+message CreateAdventureRequest {
+  Adventure adventure = 1;
+}
+
+message CreateAdventureResponse {
+  Adventure adventure = 1;
+}
+
+message ListAdventuresRequest {}
+
+message ListAdventuresResponse {
+  Adventure adventure = 1;
+}
+
+message GetAdventureRequest {
+  int32 id = 1;
+}
+
+message GetAdventureResponse {
+  Adventure adventure = 1;
+}
+
+message UpdateAdventureRequest {
+  int32 id = 1;
+  Adventure adventure = 2;
+}
+
+message UpdateAdventureResponse {
+  Adventure adventure = 1;
+}
+
+message DeleteAdventureRequest {
+  int32 id = 1;
+}
+
+message DeleteAdventureResponse {
+  Adventure adventure = 1;
+}

@@ -1,0 +1,690 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "characters/v1/characters.proto",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "CharacterService"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/characters": {
+      "get": {
+        "summary": "List characters",
+        "description": "List all characters on the server.",
+        "operationId": "CharacterService_ListCharacters",
+        "responses": {
+          "200": {
+            "description": "(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1Character"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of v1ListCharactersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Characters"
+        ]
+      },
+      "post": {
+        "summary": "Create a character",
+        "description": "Create a character to the server.",
+        "operationId": "CharacterService_CreateCharacter",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Character"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateCharacterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Characters"
+        ]
+      }
+    },
+    "/api/v1/characters/{id}": {
+      "get": {
+        "summary": "Get a character",
+        "description": "Get a character from the server.",
+        "operationId": "CharacterService_GetCharacter",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Character"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Characters"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a character",
+        "description": "Delete a character from the server.",
+        "operationId": "CharacterService_DeleteCharacter",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Character"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Characters"
+        ]
+      },
+      "put": {
+        "summary": "Update a character",
+        "description": "Update a character on the server.",
+        "operationId": "CharacterService_UpdateCharacter",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Character"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "character": {
+                  "$ref": "#/definitions/v1Character"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Characters"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Character": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "accountId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        },
+        "zoneId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneInstance": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "y": {
+          "type": "number",
+          "format": "float"
+        },
+        "x": {
+          "type": "number",
+          "format": "float"
+        },
+        "z": {
+          "type": "number",
+          "format": "float"
+        },
+        "heading": {
+          "type": "number",
+          "format": "float"
+        },
+        "gender": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "race": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "class": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "deity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "birthday": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastLogin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timePlayed": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "level2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "anon": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gm": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "face": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hairColor": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hairStyle": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "beard": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "beardColor": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "eyeColor1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "eyeColor2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drakkinHeritage": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drakkinTattoo": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "drakkinDetails": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "abilityTimeSeconds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "abilityNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "abilityTimeMinutes": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "abilityTimeHours": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "exp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "expEnabled": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aaPointsSpent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aaExp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aaPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "groupLeadershipExp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "raidLeadershipExp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "groupLeadershipPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "raidLeadershipPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "curHp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mana": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "endurance": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "intoxication": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "str": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sta": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cha": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "dex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "int": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "agi": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "wis": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneChangeCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toxicity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hungerLevel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "thirstLevel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "abilityUp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ldonPointsGuk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ldonPointsMir": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ldonPointsMmc": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ldonPointsRuj": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ldonPointsTak": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ldonPointsAvailable": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tributeTimeRemaining": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "careerTributePoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tributePoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tributeActive": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpKills": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpDeaths": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpCurrentPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpCareerPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpBestKillStreak": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpWorstDeathStreak": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpCurrentKillStreak": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvp2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pvpType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "showHelm": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "groupAutoConsent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "raidAutoConsent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "guildAutoConsent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leadershipExpOn": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "restTimer": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "airRemaining": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "autosplitEnabled": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lfp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lfg": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mailkey": {
+          "type": "string"
+        },
+        "xtargets": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "firstlogon": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "eAaEffects": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ePercentToAa": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "eExpendedAaSpent": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aaPointsSpentOld": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aaPointsOld": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "eLastInvsnapshot": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "deletedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1CreateCharacterRequest": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/v1Character"
+        }
+      }
+    },
+    "v1CreateCharacterResponse": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/v1Character"
+        }
+      }
+    },
+    "v1DeleteCharacterResponse": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/v1Character"
+        }
+      }
+    },
+    "v1GetCharacterResponse": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/v1Character"
+        }
+      }
+    },
+    "v1ListCharactersResponse": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/v1Character"
+        }
+      }
+    },
+    "v1UpdateCharacterResponse": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/v1Character"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "gRPC-gateway boilerplate repository",
+    "url": "https://github.com/johanbrandhorst/grpc-gateway-boilerplate"
+  }
+}

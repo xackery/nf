@@ -1,0 +1,227 @@
+syntax = "proto3";
+
+package characters.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// These annotations are used when generating the OpenAPI file.
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "1.0"};
+  external_docs: {
+    url: "https://github.com/johanbrandhorst/grpc-gateway-boilerplate";
+    description: "gRPC-gateway boilerplate repository";
+  }
+  schemes: HTTPS;
+};
+
+service CharacterService {
+  rpc ListCharacters(ListCharactersRequest) returns (stream ListCharactersResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/characters
+      get: "/api/v1/characters"
+      response_body: "character"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List characters"
+      description: "List all characters on the server."
+      tags: "Characters"
+    };
+  }
+  rpc CreateCharacter(CreateCharacterRequest) returns (CreateCharacterResponse) {
+    option (google.api.http) = {
+      // Route to this method from POST requests to /api/v1/characters
+      post: "/api/v1/characters"
+      body: "*"
+      response_body: "character"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a character"
+      description: "Create a character to the server."
+      tags: "Characters"
+    };
+  }
+  rpc GetCharacter(GetCharacterRequest) returns (GetCharacterResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/characters/{id}
+      get: "/api/v1/characters/{id}"
+      response_body: "character"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a character"
+      description: "Get a character from the server."
+      tags: "Characters"
+    };
+  }
+  rpc UpdateCharacter(UpdateCharacterRequest) returns (UpdateCharacterResponse) {
+    option (google.api.http) = {
+      // Route to this method from PUT requests to /api/v1/characters/{id}
+      put: "/api/v1/characters/{id}"
+      body: "*"
+      response_body: "character"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update a character"
+      description: "Update a character on the server."
+      tags: "Characters"
+    };
+  }
+  rpc DeleteCharacter(DeleteCharacterRequest) returns (DeleteCharacterResponse) {
+    option (google.api.http) = {
+      // Route to this method from DELETE requests to /api/v1/characters/{id}
+      delete: "/api/v1/characters/{id}"
+      response_body: "character"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a character"
+      description: "Delete a character from the server."
+      tags: "Characters"
+    };
+  }
+}
+
+message Character {
+  int32 id = 1;
+  int32 account_id = 2;
+  string name = 3;
+  string last_name = 4;
+  string title = 5;
+  string suffix = 6;
+  int32 zone_id = 7;
+  int32 zone_instance = 8;
+  float y = 9;
+  float x = 10;
+  float z = 11;
+  float heading = 12;
+  int32 gender = 13;
+  int32 race = 14;
+  int32 class = 15;
+  int32 level = 16;
+  int32 deity = 17;
+  int32 birthday = 18;
+  int32 last_login = 19;
+  int32 time_played = 20;
+  int32 level2 = 21;
+  int32 anon = 22;
+  int32 gm = 23;
+  int32 face = 24;
+  int32 hair_color = 25;
+  int32 hair_style = 26;
+  int32 beard = 27;
+  int32 beard_color = 28;
+  int32 eye_color_1 = 29;
+  int32 eye_color_2 = 30;
+  int32 drakkin_heritage = 31;
+  int32 drakkin_tattoo = 32;
+  int32 drakkin_details = 33;
+  int32 ability_time_seconds = 34;
+  int32 ability_number = 35;
+  int32 ability_time_minutes = 36;
+  int32 ability_time_hours = 37;
+  int32 exp = 38;
+  int32 exp_enabled = 39;
+  int32 aa_points_spent = 40;
+  int32 aa_exp = 41;
+  int32 aa_points = 42;
+  int32 group_leadership_exp = 43;
+  int32 raid_leadership_exp = 44;
+  int32 group_leadership_points = 45;
+  int32 raid_leadership_points = 46;
+  int32 points = 47;
+  int32 cur_hp = 48;
+  int32 mana = 49;
+  int32 endurance = 50;
+  int32 intoxication = 51;
+  int32 str = 52;
+  int32 sta = 53;
+  int32 cha = 54;
+  int32 dex = 55;
+  int32 int = 56;
+  int32 agi = 57;
+  int32 wis = 58;
+  int32 zone_change_count = 59;
+  int32 toxicity = 60;
+  int32 hunger_level = 61;
+  int32 thirst_level = 62;
+  int32 ability_up = 63;
+  int32 ldon_points_guk = 64;
+  int32 ldon_points_mir = 65;
+  int32 ldon_points_mmc = 66;
+  int32 ldon_points_ruj = 67;
+  int32 ldon_points_tak = 68;
+  int32 ldon_points_available = 69;
+  int32 tribute_time_remaining = 70;
+  int32 career_tribute_points = 71;
+  int32 tribute_points = 72;
+  int32 tribute_active = 73;
+  int32 pvp_status = 74;
+  int32 pvp_kills = 75;
+  int32 pvp_deaths = 76;
+  int32 pvp_current_points = 77;
+  int32 pvp_career_points = 78;
+  int32 pvp_best_kill_streak = 79;
+  int32 pvp_worst_death_streak = 80;
+  int32 pvp_current_kill_streak = 81;
+  int32 pvp2 = 82;
+  int32 pvp_type = 83;
+  int32 show_helm = 84;
+  int32 group_auto_consent = 85;
+  int32 raid_auto_consent = 86;
+  int32 guild_auto_consent = 87;
+  int32 leadership_exp_on = 88;
+  int32 rest_timer = 89;
+  int32 air_remaining = 90;
+  int32 autosplit_enabled = 91;
+  int32 lfp = 92;
+  int32 lfg = 93;
+  string mailkey = 94;
+  int32 xtargets = 95;
+  int32 firstlogon = 96;
+  int32 e_aa_effects = 97;
+  int32 e_percent_to_aa = 98;
+  int32 e_expended_aa_spent = 99;
+  int32 aa_points_spent_old = 100;
+  int32 aa_points_old = 101;
+  int32 e_last_invsnapshot = 102;
+  google.protobuf.Timestamp deleted_at = 103;
+}
+
+message CreateCharacterRequest {
+  Character character = 1;
+}
+
+message CreateCharacterResponse {
+  Character character = 1;
+}
+
+message ListCharactersRequest {}
+
+message ListCharactersResponse {
+  Character character = 1;
+}
+
+message GetCharacterRequest {
+  int32 id = 1;
+}
+
+message GetCharacterResponse {
+  Character character = 1;
+}
+
+message UpdateCharacterRequest {
+  int32 id = 1;
+  Character character = 2;
+}
+
+message UpdateCharacterResponse {
+  Character character = 1;
+}
+
+message DeleteCharacterRequest {
+  int32 id = 1;
+}
+
+message DeleteCharacterResponse {
+  Character character = 1;
+}

@@ -1,0 +1,15 @@
+{
+    "name": "grpc-gateway-boilerplate",
+    "env": {
+        "SERVE_HTTP": {
+            "description": "Whether to use HTTP to serve, instead of HTTPS",
+            "value": "true",
+            "required": false
+        },
+        "DB_DSN": {
+            "description": "Database DSN",
+            "value": "root:root@tcp(localhost:3306)/grpc_gateway_boilerplate?charset=utf8mb4&parseTime=True&loc=Local",
+            "required": false
+        }
+    }
+  }

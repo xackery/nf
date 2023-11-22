@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+package aas.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// These annotations are used when generating the OpenAPI file.
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "1.0"};
+  external_docs: {
+    url: "https://github.com/johanbrandhorst/grpc-gateway-boilerplate";
+    description: "gRPC-gateway boilerplate repository";
+  }
+  schemes: HTTPS;
+};
+
+service AaService {
+  rpc ListAas(ListAasRequest) returns (stream ListAasResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/aas
+      get: "/api/v1/aas"
+      response_body: "aa"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List aas"
+      description: "List all aas on the server."
+      tags: "Aas"
+    };
+  }
+  rpc CreateAa(CreateAaRequest) returns (CreateAaResponse) {
+    option (google.api.http) = {
+      // Route to this method from POST requests to /api/v1/aas
+      post: "/api/v1/aas"
+      body: "*"
+      response_body: "aa"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a aa"
+      description: "Create a aa to the server."
+      tags: "Aas"
+    };
+  }
+  rpc GetAa(GetAaRequest) returns (GetAaResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/aas/{id}
+      get: "/api/v1/aas/{id}"
+      response_body: "aa"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a aa"
+      description: "Get a aa from the server."
+      tags: "Aas"
+    };
+  }
+  rpc UpdateAa(UpdateAaRequest) returns (UpdateAaResponse) {
+    option (google.api.http) = {
+      // Route to this method from PUT requests to /api/v1/aas/{id}
+      put: "/api/v1/aas/{id}"
+      body: "*"
+      response_body: "aa"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update a aa"
+      description: "Update a aa on the server."
+      tags: "Aas"
+    };
+  }
+  rpc DeleteAa(DeleteAaRequest) returns (DeleteAaResponse) {
+    option (google.api.http) = {
+      // Route to this method from DELETE requests to /api/v1/aas/{id}
+      delete: "/api/v1/aas/{id}"
+      response_body: "aa"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a aa"
+      description: "Delete a aa from the server."
+      tags: "Aas"
+    };
+  }
+}
+
+message Aa {
+  int32 id = 1;
+  string name = 2;
+  int32 category = 3;
+  int32 classes = 4;
+  int32 races = 5;
+  int32 drakkin_heritage = 6;
+  int32 deities = 7;
+  int32 status = 8;
+  int32 type = 9;
+  int32 charges = 10;
+  bool grant_only = 11;
+  int32 first_rank_id = 12;
+  bool enabled = 13;
+  bool reset_on_death = 14;
+}
+
+message CreateAaRequest {
+  Aa aa = 1;
+}
+
+message CreateAaResponse {
+  Aa aa = 1;
+}
+
+message ListAasRequest {}
+
+message ListAasResponse {
+  Aa aa = 1;
+}
+
+message GetAaRequest {
+  int32 id = 1;
+}
+
+message GetAaResponse {
+  Aa aa = 1;
+}
+
+message UpdateAaRequest {
+  int32 id = 1;
+  Aa aa = 2;
+}
+
+message UpdateAaResponse {
+  Aa aa = 1;
+}
+
+message DeleteAaRequest {
+  int32 id = 1;
+}
+
+message DeleteAaResponse {
+  Aa aa = 1;
+}

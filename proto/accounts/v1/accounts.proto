@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package accounts.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// These annotations are used when generating the OpenAPI file.
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "1.0"};
+  external_docs: {
+    url: "https://github.com/johanbrandhorst/grpc-gateway-boilerplate";
+    description: "gRPC-gateway boilerplate repository";
+  }
+  schemes: HTTPS;
+};
+
+service AccountService {
+  rpc ListAccounts(ListAccountsRequest) returns (stream ListAccountsResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/accounts
+      get: "/api/v1/accounts"
+      response_body: "account"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List accounts"
+      description: "List all accounts on the server."
+      tags: "Accounts"
+    };
+  }
+  rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {
+    option (google.api.http) = {
+      // Route to this method from POST requests to /api/v1/accounts
+      post: "/api/v1/accounts"
+      body: "*"
+      response_body: "account"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a account"
+      description: "Create a account to the server."
+      tags: "Accounts"
+    };
+  }
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/accounts/{id}
+      get: "/api/v1/accounts/{id}"
+      response_body: "account"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a account"
+      description: "Get a account from the server."
+      tags: "Accounts"
+    };
+  }
+  rpc UpdateAccount(UpdateAccountRequest) returns (UpdateAccountResponse) {
+    option (google.api.http) = {
+      // Route to this method from PUT requests to /api/v1/accounts/{id}
+      put: "/api/v1/accounts/{id}"
+      body: "*"
+      response_body: "account"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update a account"
+      description: "Update a account on the server."
+      tags: "Accounts"
+    };
+  }
+  rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse) {
+    option (google.api.http) = {
+      // Route to this method from DELETE requests to /api/v1/accounts/{id}
+      delete: "/api/v1/accounts/{id}"
+      response_body: "account"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a account"
+      description: "Delete a account from the server."
+      tags: "Accounts"
+    };
+  }
+}
+
+message Account {
+  int32 id = 1;
+  string name = 2;
+  string charname = 3;
+  int32 sharedplat = 4;
+  string password = 5;
+  int32 status = 6;
+  string ls_id = 7;
+  int32 lsaccount_id = 8;
+  int32 gmspeed = 9;
+  bool invulnerable = 10;
+  bool flymode = 11;
+  bool ignore_tells = 12;
+  bool revoked = 13;
+  int32 karma = 14;
+  string minilogin_ip = 15;
+  bool hideme = 16;
+  bool rulesflag = 17;
+  google.protobuf.Timestamp suspendeduntil = 18;
+  google.protobuf.Timestamp time_creation = 19;
+  string ban_reason = 20;
+  string suspend_reason = 21;
+  repeated AccountIP ips = 22;
+}
+
+message AccountIP {
+  int32 account_id = 1;
+  string ip = 2;
+  int32 count = 3;
+  google.protobuf.Timestamp last_used = 4;
+}
+
+message CreateAccountRequest {
+  Account account = 1;
+}
+
+message CreateAccountResponse {
+  Account account = 1;
+}
+
+message ListAccountsRequest {}
+
+message ListAccountsResponse {
+  Account account = 1;
+}
+
+message GetAccountRequest {
+  int32 id = 1;
+}
+
+message GetAccountResponse {
+  Account account = 1;
+}
+
+message UpdateAccountRequest {
+  int32 id = 1;
+  Account account = 2;
+}
+
+message UpdateAccountResponse {
+  Account account = 1;
+}
+
+message DeleteAccountRequest {
+  int32 id = 1;
+}
+
+message DeleteAccountResponse {
+  Account account = 1;
+}

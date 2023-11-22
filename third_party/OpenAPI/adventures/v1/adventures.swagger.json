@@ -1,0 +1,435 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "adventures/v1/adventures.proto",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "AdventureService"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/adventures": {
+      "get": {
+        "summary": "List adventures",
+        "description": "List all adventures on the server.",
+        "operationId": "AdventureService_ListAdventures",
+        "responses": {
+          "200": {
+            "description": "(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1Adventure"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of v1ListAdventuresResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Adventures"
+        ]
+      },
+      "post": {
+        "summary": "Create a adventure",
+        "description": "Create a adventure to the server.",
+        "operationId": "AdventureService_CreateAdventure",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Adventure"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateAdventureRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Adventures"
+        ]
+      }
+    },
+    "/api/v1/adventures/{id}": {
+      "get": {
+        "summary": "Get a adventure",
+        "description": "Get a adventure from the server.",
+        "operationId": "AdventureService_GetAdventure",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Adventure"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Adventures"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a adventure",
+        "description": "Delete a adventure from the server.",
+        "operationId": "AdventureService_DeleteAdventure",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Adventure"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Adventures"
+        ]
+      },
+      "put": {
+        "summary": "Update a adventure",
+        "description": "Update a adventure on the server.",
+        "operationId": "AdventureService_UpdateAdventure",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Adventure"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "adventure": {
+                  "$ref": "#/definitions/v1Adventure"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Adventures"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Adventure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zone": {
+          "type": "string"
+        },
+        "zoneVersion": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isHard": {
+          "type": "boolean"
+        },
+        "isRaid": {
+          "type": "boolean"
+        },
+        "minLevel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxLevel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "typeData": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "typeCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "assaX": {
+          "type": "number",
+          "format": "float"
+        },
+        "assaY": {
+          "type": "number",
+          "format": "float"
+        },
+        "assaZ": {
+          "type": "number",
+          "format": "float"
+        },
+        "assaH": {
+          "type": "number",
+          "format": "float"
+        },
+        "text": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneInTime": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "winPoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "losePoints": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "theme": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneInZoneId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneInX": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneInY": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneInZ": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "zoneInObjectId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "destX": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "destY": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "destZ": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "destH": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "graveyardZoneId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "graveyardX": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "graveyardY": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "graveyardZ": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "graveyardRadius": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1AdventureEntry"
+          }
+        }
+      }
+    },
+    "v1AdventureEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "templateId": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1CreateAdventureRequest": {
+      "type": "object",
+      "properties": {
+        "adventure": {
+          "$ref": "#/definitions/v1Adventure"
+        }
+      }
+    },
+    "v1CreateAdventureResponse": {
+      "type": "object",
+      "properties": {
+        "adventure": {
+          "$ref": "#/definitions/v1Adventure"
+        }
+      }
+    },
+    "v1DeleteAdventureResponse": {
+      "type": "object",
+      "properties": {
+        "adventure": {
+          "$ref": "#/definitions/v1Adventure"
+        }
+      }
+    },
+    "v1GetAdventureResponse": {
+      "type": "object",
+      "properties": {
+        "adventure": {
+          "$ref": "#/definitions/v1Adventure"
+        }
+      }
+    },
+    "v1ListAdventuresResponse": {
+      "type": "object",
+      "properties": {
+        "adventure": {
+          "$ref": "#/definitions/v1Adventure"
+        }
+      }
+    },
+    "v1UpdateAdventureResponse": {
+      "type": "object",
+      "properties": {
+        "adventure": {
+          "$ref": "#/definitions/v1Adventure"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "gRPC-gateway boilerplate repository",
+    "url": "https://github.com/johanbrandhorst/grpc-gateway-boilerplate"
+  }
+}

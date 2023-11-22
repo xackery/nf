@@ -1,0 +1,162 @@
+syntax = "proto3";
+
+package aas.ranks.v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// These annotations are used when generating the OpenAPI file.
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {version: "1.0"};
+  external_docs: {
+    url: "https://github.com/johanbrandhorst/grpc-gateway-boilerplate";
+    description: "gRPC-gateway boilerplate repository";
+  }
+  schemes: HTTPS;
+};
+
+service RankService {
+  rpc ListRanks(ListRanksRequest) returns (stream ListRanksResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/aas/ranks
+      get: "/api/v1/aas/{aaid}/ranks"
+      response_body: "rank"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "List ranks"
+      description: "List all ranks on the server."
+      tags: "Ranks"
+    };
+  }
+  rpc CreateRank(CreateRankRequest) returns (CreateRankResponse) {
+    option (google.api.http) = {
+      // Route to this method from POST requests to /api/v1/aas/ranks
+      post: "/api/v1/aas/{aaid}/ranks"
+      body: "*"
+      response_body: "rank"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Create a rank"
+      description: "Create a rank to the server."
+      tags: "Ranks"
+    };
+  }
+  rpc GetRank(GetRankRequest) returns (GetRankResponse) {
+    option (google.api.http) = {
+      // Route to this method from GET requests to /api/v1/aas/ranks/{id}
+      get: "/api/v1/aas/{aaid}/ranks/{id}"
+      response_body: "rank"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Get a rank"
+      description: "Get a rank from the server."
+      tags: "Ranks"
+    };
+  }
+  rpc UpdateRank(UpdateRankRequest) returns (UpdateRankResponse) {
+    option (google.api.http) = {
+      // Route to this method from PUT requests to /api/v1/aas/ranks/{id}
+      put: "/api/v1/aas/{aaid}/ranks/{id}"
+      body: "*"
+      response_body: "rank"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Update a rank"
+      description: "Update a rank on the server."
+      tags: "Ranks"
+    };
+  }
+  rpc DeleteRank(DeleteRankRequest) returns (DeleteRankResponse) {
+    option (google.api.http) = {
+      // Route to this method from DELETE requests to /api/v1/aas/ranks/{id}
+      delete: "/api/v1/aas/{aaid}/ranks/{id}"
+      response_body: ""
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Delete a rank"
+      description: "Delete a rank from the server."
+      tags: "Ranks"
+    };
+  }
+}
+
+message Rank {
+  int32 id = 1;
+  int32 upper_hotkey_sid = 2;
+  int32 lower_hotkey_sid = 3;
+  int32 title_sid = 4;
+  int32 desc_sid = 5;
+  int32 cost = 6;
+  int32 level_req = 7;
+  int32 spell = 8;
+  int32 spell_type = 9;
+  int32 recast_time = 10;
+  int32 expansion = 11;
+  int32 prev_id = 12;
+  int32 next_id = 13;
+  repeated RankEffect effects = 14;
+  repeated RankPrereq prereqs = 15;
+}
+
+message RankEffect {
+  int32 rank_id = 1;
+  int32 slot = 2;
+  int32 effect_id = 3;
+  int32 base1 = 4;
+  int32 base2 = 5;
+}
+
+message RankPrereq {
+  int32 rank_id = 1;
+  int32 aa_id = 2;
+  int32 points = 3;
+}
+
+message CreateRankRequest {
+  int32 aaid = 1;
+  Rank rank = 2;
+}
+
+message CreateRankResponse {
+  Rank rank = 1;
+}
+
+message ListRanksRequest {
+  int32 aaid = 1;
+}
+
+message ListRanksResponse {
+  int32 aaid = 1;
+  Rank rank = 2;
+}
+
+message GetRankRequest {
+  int32 aaid = 1;
+  int32 id = 2;
+}
+
+message GetRankResponse {
+  int32 aaid = 1;
+  int32 id = 2;
+  Rank rank = 3;
+}
+
+message UpdateRankRequest {
+  int32 aaid = 1;
+  int32 id = 2;
+  Rank rank = 3;
+}
+
+message UpdateRankResponse {
+  Rank rank = 1;
+}
+
+message DeleteRankRequest {
+  int32 aaid = 1;
+  int32 id = 2;
+}
+
+message DeleteRankResponse {
+  int32 aaid = 1;
+  int32 id = 2;
+}

@@ -1,0 +1,442 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "aas/ranks/v1/ranks.proto",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "RankService"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/aas/{aaid}/ranks": {
+      "get": {
+        "summary": "List ranks",
+        "description": "List all ranks on the server.",
+        "operationId": "RankService_ListRanks",
+        "responses": {
+          "200": {
+            "description": "(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1Rank"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of v1ListRanksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "aaid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Ranks"
+        ]
+      },
+      "post": {
+        "summary": "Create a rank",
+        "description": "Create a rank to the server.",
+        "operationId": "RankService_CreateRank",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Rank"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "aaid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rank": {
+                  "$ref": "#/definitions/v1Rank"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Ranks"
+        ]
+      }
+    },
+    "/api/v1/aas/{aaid}/ranks/{id}": {
+      "get": {
+        "summary": "Get a rank",
+        "description": "Get a rank from the server.",
+        "operationId": "RankService_GetRank",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Rank"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "aaid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Ranks"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a rank",
+        "description": "Delete a rank from the server.",
+        "operationId": "RankService_DeleteRank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteRankResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "aaid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Ranks"
+        ]
+      },
+      "put": {
+        "summary": "Update a rank",
+        "description": "Update a rank on the server.",
+        "operationId": "RankService_UpdateRank",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1Rank"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "aaid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rank": {
+                  "$ref": "#/definitions/v1Rank"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "Ranks"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1CreateRankResponse": {
+      "type": "object",
+      "properties": {
+        "rank": {
+          "$ref": "#/definitions/v1Rank"
+        }
+      }
+    },
+    "v1DeleteRankResponse": {
+      "type": "object",
+      "properties": {
+        "aaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1GetRankResponse": {
+      "type": "object",
+      "properties": {
+        "aaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rank": {
+          "$ref": "#/definitions/v1Rank"
+        }
+      }
+    },
+    "v1ListRanksResponse": {
+      "type": "object",
+      "properties": {
+        "aaid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rank": {
+          "$ref": "#/definitions/v1Rank"
+        }
+      }
+    },
+    "v1Rank": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "upperHotkeySid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lowerHotkeySid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "titleSid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "descSid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cost": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "levelReq": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "spell": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "spellType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recastTime": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "expansion": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prevId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "nextId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1RankEffect"
+          }
+        },
+        "prereqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1RankPrereq"
+          }
+        }
+      }
+    },
+    "v1RankEffect": {
+      "type": "object",
+      "properties": {
+        "rankId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "slot": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "effectId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "base1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "base2": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1RankPrereq": {
+      "type": "object",
+      "properties": {
+        "rankId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aaId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1UpdateRankResponse": {
+      "type": "object",
+      "properties": {
+        "rank": {
+          "$ref": "#/definitions/v1Rank"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "gRPC-gateway boilerplate repository",
+    "url": "https://github.com/johanbrandhorst/grpc-gateway-boilerplate"
+  }
+}
